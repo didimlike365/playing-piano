@@ -179,6 +179,7 @@ button.ghost{background:transparent;border-color:var(--panel-2)}
       <button class="spd on" data-spd="0">1배속</button>
       <button class="spd ghost" data-spd="1">2배속</button>
       <button class="spd ghost" data-spd="2">3배속</button>
+      <button id="instBtn" class="ghost">피아노</button>
       <button id="record" class="ghost">직접 만들기</button>
     </div>
   </div>
@@ -284,7 +285,7 @@ var YAN2=[60,60,62,64,65,64,62,60,71,67,69,71,60,60],DYAN2=[.5,.5,.5,.5,.5,.5,.5
 var MICH=[60,64,67,67,67,69,67,64,60,64,67,67,64,62,60],DMICH=[.5,.5,1,.5,.5,.5,.5,2,.5,.5,1,1,1,1,2];
 var JOYW=[72,71,69,67,65,64,62,60,67,67,69,71,72],DJOYW=[1.5,.5,.5,1,.5,.5,1.5,2,1.5,.5,1,1,2];
 var GREE=[69,72,74,76,77,76,74,71,67,69,71,72,69,69,68,69,71,68,64],DGREE=[.5,1,.5,1.5,.5,.5,1,.5,1,.5,.5,1,.5,1,.5,.5,1,.5,2];
-var FATE=[67,67,67,63,65,65,65,62,67,67,67,63,65,65,65,62],DFATE=[.5,.5,.5,3,.5,.5,.5,3,.5,.5,.5,3,.5,.5,.5,3];
+var FATE=[67,67,67,63,65,65,65,62,67,67,67,63,65,65,65,62,67,67,67,63,65,65,65,62,60],DFATE=[.5,.5,.5,3,.5,.5,.5,3,.5,.5,.5,1.5,.5,.5,.5,1.5,.5,.5,.5,1.5,.5,.5,.5,1.5,3];
 var SCAL=[60,62,64,65,67,69,71,72,72,71,69,67,65,64,62,60],DSCAL=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2];
 var ARPG=[60,64,67,72,67,64,60,62,65,69,74,69,65,62,64,67,71,76,71,67,64,60],DARPG=[.5,.5,.5,.5,.5,.5,1,.5,.5,.5,.5,.5,.5,1,.5,.5,.5,.5,.5,.5,1,2];
 var BLAK=[61,63,66,68,70,73,75,73,70,68,66,63,61],DBLAK=[.5,.5,.5,.5,.5,.5,1,.5,.5,.5,.5,.5,2];
@@ -296,6 +297,10 @@ var HAYD=[72,72,76,76,79,79,76,77,77,74,74,71,71,67,72,72,76,76,79,79,76,77,77,7
 var DVOR=[64,67,67,64,67,69,67,64,67,67,64,62,60,62,64,67,67,64,67,69,67,64,62,60,62,64,62,60],DDVOR=[1,1,2,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,3];
 var GRIE=[67,64,62,60,62,64,67,64,67,69,67,64,67,64,62,60,62,64,62,60],DGRIE=[.5,.5,.5,.5,.5,.5,1,1,.5,.5,.5,.5,.5,.5,1,1,.5,.5,1,2];
 var SHRK=[62,64,67,67,67,67,67,67,67,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,67,67,65,65,62,64,67,67,67,67,67,67,67,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,67,67,65,65,62,64,67,67,67,67,67,67,67,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,67,67,65,65,62,62,64,67,67,67,67,67,67,67,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,67,67,67,65,65,62,62,62,64,67,67,67,67,67,67,67,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,67,67,67,67,65,65,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,62,64,67,67,67,67,67,67,67,67,65,65,60,62,65,65,65,65,65,65,60,62,65,65,65,65,65,65,60,62,65,65,65,65,65,65,65,65,64,64,60,62,65,65,65,65,65,65,60,62,65,65,65,65,65,65,60,62,65,65,65,65,65,65,65,65,64,60,62,65,65,65,65,65,65,60,62,65,65,65,65,65,65,60,62,65,65,65,67,67,67],DSHRK=SHRK.map(function(){return .25;});
+var LUNE=[60,60,60,62,64,62,60,64,62,62,60,60,60,60,62,64,62,60,64,62,62,60],DLUNE=[.5,.5,.5,.5,1,1,.5,.5,.5,.5,2,.5,.5,.5,.5,1,1,.5,.5,.5,.5,2];
+var DANU=[60,64,67,67,79,79,77,77,60,64,67,67,76,76,74,74,60,64,67,72],DDANU=[1,1,1,2,1,2,1,2,1,1,1,2,1,2,1,2,1,1,1,3];
+var JOYF=[76,76,77,79,79,77,76,74,72,72,74,76,76,74,74,76,76,77,79,79,77,76,74,72,72,74,76,74,72,72,74,74,76,72,74,76,77,76,72,74,76,77,76,74,72,74,67,76,76,77,79,79,77,76,74,72,72,74,76,74,72,72],DJOYF=[1,1,1,1,1,1,1,1,1,1,1,1,1.5,.5,2,1,1,1,1,1,1,1,1,1,1,1,1,1.5,.5,2,1,1,1,1,1,.5,.5,1,1,1,.5,.5,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1.5,.5,2];
+var KLEI=[72,67,72,67,72,76,79,84,77,74,71,74,77,74,71,67,72,67,72,67,72,76,79,72],DKLEI=[.75,.25,.75,.25,.5,.5,.5,2,.75,.25,.75,.25,.5,.5,.5,2,.75,.25,.75,.25,.5,.5,.5,3];
 function P(t,n,d){return {t:t,n:n,d:d&&d.length===n.length?d:n.map(function(){return .5;})};}
 
 var SONGS=[
@@ -313,9 +318,7 @@ var SONGS=[
   {id:"plane",title:"비행기",parts:[
     P("파트 1",PLANE1,DPLANE1),P("파트 2",PLANE2,DPLANE2),
     P("전곡",PLANE1.concat(PLANE2),DPLANE1.concat(DPLANE2))]},
-  {id:"joy",title:"환희의 송가",parts:[
-    P("파트 1",JOY1,DJOY),P("파트 2",JOY2,DJOY),
-    P("전곡",JOY1.concat(JOY2),DJOY.concat(DJOY))]},
+  {id:"joy",title:"환희의 송가",parts:[P("전곡",JOYF,DJOYF)]},
   {id:"jingle",title:"징글벨",parts:[
     P("파트 1",JING1,DJING1),P("파트 2",JING2,DJING2),
     P("전곡",JING1.concat(JING2),DJING1.concat(DJING2))]},
@@ -359,6 +362,7 @@ var SONGS=[
   {id:"island",title:"섬집아기",parts:[
     P("파트 1",ISL1),P("파트 2",ISL2),
     P("전곡",ISL1.concat(ISL2))]},
+  {id:"lune",title:"달빛 아래서",parts:[P("전곡",LUNE,DLUNE)]},
   {id:"hotcross",title:"핫 크로스 번",parts:[P("전곡",HOTX,DHOTX)]},
   {id:"mice",title:"세 마리 눈먼 쥐",parts:[P("전곡",MICE.concat([64,62,60]),DMICE.concat([1,1,3]))]},
   {id:"yankee",title:"양키 두들",parts:[
@@ -367,13 +371,15 @@ var SONGS=[
   {id:"michael",title:"마이클 노를 저어라",parts:[P("전곡",MICH,DMICH)]},
   {id:"joyworld",title:"기쁘다 구주 오셨네",parts:[P("전곡",JOYW,DJOYW)]},
   {id:"greensleeves",title:"그린슬리브스",parts:[P("전곡",GREE.concat([68,69]),DGREE.concat([.5,3]))]},
-  {id:"fate",title:"운명 교향곡 · 베토벤",parts:[P("전곡",FATE.concat([60]),DFATE.concat([3]))]},
+  {id:"fate",title:"운명 교향곡 · 베토벤",parts:[P("전곡",FATE,DFATE)]},
   {id:"scale",title:"도레미 음계",parts:[P("전곡",SCAL,DSCAL)]},
   {id:"arpeggio",title:"도미솔 계단",parts:[P("전곡",ARPG,DARPG)]},
   {id:"blackkeys",title:"검은 건반 놀이",parts:[P("전곡",BLAK,DBLAK)]},
   {id:"haydn",title:"놀람 교향곡 · 하이든",parts:[P("전곡",HAYD,DHAYD)]},
   {id:"dvorak",title:"꿈속의 고향 · 드보르작",parts:[P("전곡",DVOR,DDVOR)]},
   {id:"grieg",title:"아침의 기분 · 그리그",parts:[P("전곡",GRIE,DGRIE)]},
+  {id:"danube",title:"푸른 도나우 · 슈트라우스",parts:[P("전곡",DANU,DDANU)]},
+  {id:"kleine",title:"아이네 클라이네 · 모차르트",parts:[P("전곡",KLEI,DKLEI)]},
   {id:"canon",title:"캐논 · 파헬벨",parts:[
     P("파트 1",CANO,DCANO),
     P("전곡",CANO.concat(CANF),DCANO.concat(DCANF))]}
@@ -392,6 +398,9 @@ cake:"M4 21v-6.6h16V21zM6.2 12.6V9.4h11.6v3.2zM11.2 7.6V3h1.6v4.6z",
 moon:"M20.6 14.4A8.4 8.4 0 0 1 9.6 3.4a8.4 8.4 0 1 0 11 11z",
 sun:"M12 6.6A5.4 5.4 0 1 0 12 17.4 5.4 5.4 0 0 0 12 6.6zM11.2 1h1.6v3.4h-1.6zm0 18.6h1.6V23h-1.6zM1 11.2h3.4v1.6H1zm18.6 0H23v1.6h-3.4z",
 heart:"M12 21.2S3.6 14.4 3.6 9.1A4.6 4.6 0 0 1 12 6.3a4.6 4.6 0 0 1 8.4 2.8c0 5.3-8.4 12.1-8.4 12.1z",
+guitar:"M20.5 1.5l2 2-6.2 6.2 1.2 1.2a4.6 4.6 0 0 1-1 6.8 4.6 4.6 0 0 1-5.6-.3A4.6 4.6 0 0 1 9.2 11a4.6 4.6 0 0 1 4.2-1.1l1.1 1.1z",
+gamepad:"M4 9h16a3.5 3.5 0 0 1 3.5 3.5v3A3.5 3.5 0 0 1 20 19H4a3.5 3.5 0 0 1-3.5-3.5v-3A3.5 3.5 0 0 1 4 9zm3 2v2H5v2h2v2h2v-2h2v-2H9v-2zm9 .8a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6zm3 2.2a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z",
+organ:"M3.5 21V9.5l2-2V21zm5 0V6.5l2-2V21zm5 0V3.5l2-2V21zm5 0V7.5l2-2V21z",
 pencil:"M3 21l4.4-1.1L19.6 7.7l-3.3-3.3L4.1 16.6zM17.6 2.4l3.3 3.3 1.4-1.4-3.3-3.3z"
 };
 var SONGICON={star:"star",butterfly:"heart",plane:"plane",frere:"sun",london:"boat",row:"boat",
@@ -399,10 +408,10 @@ var SONGICON={star:"star",butterfly:"heart",plane:"plane",frere:"sun",london:"bo
   canon:"crown",turkish:"crown",brahms:"moon",amazing:"bell",jingle:"tree",xmas:"tree",
   silent:"moon",golden:"star",mine:"pencil",
   hotcross:"cake",mice:"heart",yankee:"note",michael:"boat",joyworld:"tree",
-  greensleeves:"heart",fate:"crown",scale:"sun",arpeggio:"sun",blackkeys:"moon",island:"moon",tomato:"heart",shark:"boat",haydn:"crown",dvorak:"moon",grieg:"sun"};
+  greensleeves:"heart",fate:"crown",scale:"sun",arpeggio:"sun",blackkeys:"moon",island:"moon",tomato:"heart",shark:"boat",haydn:"crown",lune:"moon",kleine:"crown",danube:"boat",dvorak:"moon",grieg:"sun"};
 var GENRES=[
-  {t:"동요",icon:"star",ids:["star","butterfly","plane","frere","hotcross","mice","london","row","michael","yankee","oldmac","saints","susanna","bday"]},
-  {t:"클래식 · 명곡",icon:"crown",ids:["fur","joy","minuet","canon","turkish","fate","haydn","dvorak","grieg","brahms","amazing","greensleeves"]},
+  {t:"동요",icon:"star",ids:["star","butterfly","plane","frere","lune","hotcross","mice","london","row","michael","yankee","oldmac","saints","susanna","bday"]},
+  {t:"클래식 · 명곡",icon:"crown",ids:["fur","joy","minuet","canon","turkish","fate","haydn","dvorak","grieg","danube","kleine","brahms","amazing","greensleeves"]},
   {t:"크리스마스",icon:"tree",ids:["jingle","xmas","silent","joyworld"]},
   {t:"손 풀기",icon:"sun",ids:["scale","arpeggio","blackkeys"]},
   {t:"내 곡",icon:"pencil",ids:["shark","tomato","island","golden","mine"]}
@@ -454,16 +463,8 @@ function audio(){
   return ac;
 }
 function tone(midi,dur){
-  var c=audio(),f=440*Math.pow(2,(midi-69)/12),t=c.currentTime;dur=dur||1.2;
-  var g=c.createGain();g.connect(bus);
-  g.gain.setValueAtTime(0.0001,t);
-  g.gain.linearRampToValueAtTime(0.3,t+0.012);
-  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-  [[1,1],[2,0.28],[3,0.12],[4,0.05],[6,0.02]].forEach(function(h,i){
-    var o=c.createOscillator();o.type=i===0?"triangle":"sine";o.frequency.value=f*h[0];
-    var hg=c.createGain();hg.gain.value=h[1];
-    o.connect(hg);hg.connect(g);o.start(t);o.stop(t+dur);
-  });
+  var v=buildVoice(midi);
+  setTimeout(function(){fade(v,.15);},Math.max(80,(dur||1)*1000));
 }
 var cheer=document.getElementById("cheer"),cheerSub=document.getElementById("cheerSub"),cheerTimer=null;
 function celebrate(){
@@ -485,15 +486,56 @@ cheer.addEventListener("pointerdown",function(e){e.preventDefault();hideCheer();
 
 var voices={},held={};
 var TAIL=5,MAX_TOTAL=14,MAX_PER_KEY=3,nVoices=0;
+var INST={
+  piano:{t:"피아노",ic:"note"},
+  guitar:{t:"기타",ic:"guitar"},
+  chip:{t:"8비트 게임",ic:"gamepad"},
+  bell:{t:"실로폰",ic:"bell"},
+  organ:{t:"오르간",ic:"organ"}
+};
+var inst="piano";
+try{var si=localStorage.getItem("kidsPianoInst");if(si&&INST[si])inst=si;}catch(e){}
+function buildVoice(midi){
+  var c=audio(),f=440*Math.pow(2,(midi-69)/12),t=c.currentTime;
+  var g=c.createGain(),os=[],dest=g,rel=.16,tail=TAIL,specs;
+  g.connect(bus);
+  var G=g.gain;G.setValueAtTime(.0001,t);
+  if(inst==="guitar"){
+    var flt=c.createBiquadFilter();flt.type="lowpass";flt.Q.value=1.3;
+    flt.frequency.setValueAtTime(3400,t);flt.frequency.exponentialRampToValueAtTime(650,t+.4);
+    flt.connect(g);dest=flt;
+    G.linearRampToValueAtTime(.36,t+.006);G.exponentialRampToValueAtTime(.12,t+.5);G.exponentialRampToValueAtTime(.0001,t+3);
+    specs=[[1,"sawtooth",.5],[1.004,"sawtooth",.25],[2,"triangle",.2],[3,"sine",.08]];rel=.12;tail=3;
+  }else if(inst==="chip"){
+    G.linearRampToValueAtTime(.17,t+.004);G.setValueAtTime(.17,t+TAIL-.05);G.exponentialRampToValueAtTime(.0001,t+TAIL);
+    specs=[[1,"square",1],[2,"square",.1]];rel=.05;
+  }else if(inst==="bell"){
+    G.linearRampToValueAtTime(.3,t+.003);G.exponentialRampToValueAtTime(.05,t+.6);G.exponentialRampToValueAtTime(.0001,t+1.8);
+    specs=[[1,"sine",1],[3,"sine",.32],[6.4,"sine",.12],[9.7,"sine",.04]];rel=.25;tail=1.8;
+  }else if(inst==="organ"){
+    G.linearRampToValueAtTime(.2,t+.03);G.setValueAtTime(.2,t+TAIL-.05);G.exponentialRampToValueAtTime(.0001,t+TAIL);
+    specs=[[.5,"sine",.3],[1,"sine",1],[2,"sine",.55],[3,"sine",.35],[4,"sine",.25]];rel=.08;
+  }else{
+    G.linearRampToValueAtTime(.3,t+.014);G.exponentialRampToValueAtTime(.08,t+1.1);G.exponentialRampToValueAtTime(.0001,t+TAIL);
+    specs=[[1,"triangle",1],[2,"sine",.28],[3,"sine",.12],[4,"sine",.05]];
+  }
+  specs.forEach(function(h){
+    var o=c.createOscillator();o.type=h[1];o.frequency.value=f*h[0];
+    var hg=c.createGain();hg.gain.value=h[2];o.connect(hg);hg.connect(dest);
+    o.start(t);o.stop(t+tail+.1);
+    o.onended=function(){try{o.disconnect();hg.disconnect();}catch(e){}};
+    os.push(o);
+  });
+  return {g:g,os:os,born:t,rel:rel,tail:tail};
+}
 function fade(v,rel){
   var t=ac.currentTime;
   try{
-    if(v.g.gain.cancelAndHoldAtTime)v.g.gain.cancelAndHoldAtTime(t);   // 현재 음량을 그대로 붙잡는다
+    if(v.g.gain.cancelAndHoldAtTime)v.g.gain.cancelAndHoldAtTime(t);
     else{v.g.gain.cancelScheduledValues(t);v.g.gain.setValueAtTime(Math.max(.0001,v.g.gain.value),t);}
     v.g.gain.exponentialRampToValueAtTime(.0001,t+rel);
   }catch(e){}
   v.os.forEach(function(o){try{o.stop(t+rel+.05);}catch(e){}});
-  v.g.__dead=1;
 }
 function dropOldest(){
   var best=null,bk=null;
@@ -503,37 +545,23 @@ function dropOldest(){
   nVoices--;fade(best,.05);
 }
 function noteOn(midi){
-  var c=audio(),f=440*Math.pow(2,(midi-69)/12),t=c.currentTime;
   var arr=voices[midi]||(voices[midi]=[]);
   while(arr.length>=MAX_PER_KEY){var old=arr.shift();nVoices--;fade(old,.04);}
   while(nVoices>=MAX_TOTAL)dropOldest();
-  var g=c.createGain();g.connect(bus);
-  g.gain.setValueAtTime(.0001,t);
-  g.gain.linearRampToValueAtTime(.3,t+.014);
-  g.gain.exponentialRampToValueAtTime(.08,t+1.1);
-  g.gain.exponentialRampToValueAtTime(.0001,t+TAIL);
-  var os=[];
-  [[1,1],[2,.28],[3,.12],[4,.05]].forEach(function(h,i){
-    var o=c.createOscillator();o.type=i===0?"triangle":"sine";o.frequency.value=f*h[0];
-    var hg=c.createGain();hg.gain.value=h[1];
-    o.connect(hg);hg.connect(g);o.start(t);o.stop(t+TAIL+.1);
-    o.onended=function(){try{o.disconnect();hg.disconnect();}catch(e){}};
-    os.push(o);
-  });
-  arr.push({g:g,os:os,born:t});
-  nVoices++;
-  setTimeout(function(){                       // 꼬리까지 끝난 보이스는 스스로 정리
+  var v=buildVoice(midi);
+  arr.push(v);nVoices++;
+  setTimeout(function(){
     var a=voices[midi];if(!a)return;
-    var i=a.indexOf(arr[arr.length-1]);
+    var i=a.indexOf(v);
     if(i>-1){a.splice(i,1);nVoices--;if(!a.length)delete voices[midi];}
-    try{g.disconnect();}catch(e){}
-  },(TAIL+.3)*1000);
+    try{v.g.disconnect();}catch(e){}
+  },(v.tail+.3)*1000);
 }
 function noteOff(midi,fast){
   var arr=voices[midi];if(!arr||!arr.length||!ac)return;
   var v=arr.shift();if(!arr.length)delete voices[midi];
   nVoices--;
-  fade(v,fast?.03:.16);
+  fade(v,fast?.03:v.rel);
 }
 function release(m){
   if(keys[m])keys[m].classList.remove("hit");
@@ -810,6 +838,21 @@ function showParts(){
     MGRID.appendChild(card("note",pt.t,pt.n.length+"음",false,function(){choose(curSong,i);closePicker();}));
   });
 }
+function showInstruments(){
+  MTITLE.textContent="어떤 소리로 칠까요";MBACK.style.visibility="hidden";
+  MGRID.innerHTML="";
+  Object.keys(INST).forEach(function(k){
+    var c=card(INST[k].ic,INST[k].t,k===inst?"지금 쓰는 중":"",k===inst,function(){
+      inst=k;document.getElementById("instBtn").textContent=INST[k].t;
+      try{localStorage.setItem("kidsPianoInst",k);}catch(e){}
+      closePicker();releaseAll();tone(72,.6);
+    });
+    MGRID.appendChild(c);
+  });
+  MODAL.classList.add("show");
+}
+document.getElementById("instBtn").onclick=function(){audio();showInstruments();};
+document.getElementById("instBtn").textContent=INST[inst].t;
 document.getElementById("mClose").onclick=closePicker;
 MODAL.addEventListener("pointerdown",function(e){if(e.target===MODAL)closePicker();});
 function choose(si,pi){
