@@ -51,6 +51,10 @@ button:active{transform:scale(.95)}
 button:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
 button.on{background:var(--glow);color:#3B2A00;font-weight:500}
 button.ghost{background:transparent;border-color:var(--panel-2)}
+.g{display:none}
+body.guide .g{display:inline-block}
+body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.guide #demo{display:none}
+.chip{font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:17px;color:var(--glow);padding:4px 10px;border:1.5px solid var(--panel-2);border-radius:999px;white-space:nowrap;min-width:52px;text-align:center}
 .sep{width:1px;align-self:stretch;background:var(--panel-2);margin:2px 3px;flex:0 0 auto}
 
 #stage{flex:1 1 auto;min-height:70%;position:relative;overflow:hidden;touch-action:none}
@@ -170,6 +174,7 @@ button.ghost{background:transparent;border-color:var(--panel-2)}
       <span class="brand">시우의 피아노 연주 대회</span>
       <button id="free" class="on">자유 연주</button>
       <button id="follow" class="ghost">따라하기</button>
+      <button id="guide" class="ghost">연주 안내</button>
       <span class="sep"></span>
       <button id="wide" class="ghost">가로로 크게</button>
       <button id="demo" class="ghost">들려주기</button>
@@ -179,6 +184,10 @@ button.ghost{background:transparent;border-color:var(--panel-2)}
       <button class="spd on" data-spd="0">1배속</button>
       <button class="spd ghost" data-spd="1">2배속</button>
       <button class="spd ghost" data-spd="2">3배속</button>
+      <button id="gPlay" class="g on">멈춤</button>
+      <button id="gSlow" class="g ghost">느리게</button>
+      <span id="gRate" class="g chip">1배</span>
+      <button id="gFast" class="g ghost">빠르게</button>
       <button id="instBtn" class="ghost">피아노</button>
       <button id="record" class="ghost">직접 만들기</button>
     </div>
@@ -594,6 +603,8 @@ var SPEEDS=[{t:"1배속",ms:1800,fall:1700},{t:"2배속",ms:900,fall:1400},{t:"3
 function clearLit(){for(var k in keys)keys[k].classList.remove("lit");}
 function blip(m,cls){var e=keys[m];if(!e)return;e.classList.add(cls);setTimeout(function(){e.classList.remove(cls);},170);}
 function stopDemo(){timers.forEach(clearTimeout);timers=[];}
+var RATES=[.1,.2,.3,.4,.5,.6,.7,.8,.9,1,1.25,1.5,2,3],gRate=1,gPaused=false,pickTarget="follow";
+try{var gr=parseFloat(localStorage.getItem("kidsPianoRate"));if(RATES.indexOf(gr)>-1)gRate=gr;}catch(e){}
 var FALL=1700,NOTES=[],raf=null,lastT=0,T=0,onsets=[],isLit=false,BLK={};
 BLACK.forEach(function(b){BLK[b.m]=1;});
 var holdEl=null,holdNote=null,ringing=null,scoreMode=true,holdStars=0,lastSpark=0;
@@ -602,7 +613,7 @@ var holdEl=null,holdNote=null,ringing=null,scoreMode=true,holdStars=0,lastSpark=
   holdEl=document.createElement("i");holdEl.className="nt hold";holdEl.style.display="none";
 })();
 function clearHold(){
-  if(holdNote&&keys[holdNote.m])keys[holdNote.m].classList.remove("holding");
+  if(holdNote&&keys[holdNote.m]){keys[holdNote.m].classList.remove("holding");if(mode==="guide")keys[holdNote.m].classList.remove("lit");}
   holdNote=null;if(holdEl)holdEl.style.display="none";
 }
 function updateHold(now){
@@ -619,7 +630,7 @@ function updateHold(now){
   }
   if(rem<=0){
     var ratio=holdNote.heldMs/holdNote.ms;
-    if(scoreMode){
+    if(scoreMode&&mode==="follow"){
       if(ratio>=.8){holdStars+=2;feel="길이까지 완벽";burst(holdNote.m);}
       else if(ratio>=.5){holdStars+=1;feel="조금 짧아요";}
       else feel="너무 짧게 눌렀어요";
@@ -634,7 +645,13 @@ function updateHold(now){
   holdEl.style.top=Math.round(Hk-h)+"px";
 }
 var scale=1;
+function applyGuideRate(){
+  beat=Math.round(1800/gRate);
+  FALL=gRate>=3?1150:gRate>=2?1400:1700;
+  var el=document.getElementById("gRate");if(el)el.textContent=(gRate%1?gRate.toFixed(gRate*10%1?2:1):gRate)+"배";
+}
 function calcScale(){
+  if(mode==="guide"){scale=1;return;}
   var mx=0;
   for(var i=0;i<dur.length;i++)if(dur[i]>mx)mx=dur[i];
   scale=(mx*beat>2000)?2000/(mx*beat):1;
@@ -671,6 +688,34 @@ function tick(now){
   drawNotes();
   if(!isLit&&T>=onsets[step])lightNow();
   raf=requestAnimationFrame(tick);
+}
+function guideHit(k){
+  var m=seq[k],ms=noteMs(dur[k]);
+  clearLit();keys[m].classList.add("lit");
+  holdNote={m:m,t0:performance.now(),ms:ms,heldMs:0,last:0,lastPop:0};
+  var nx=k+1<seq.length?" · 다음 "+NAME[seq[k+1]]:"";
+  msg.innerHTML="<b>"+NAME[m]+"</b>"+nx;
+  tally.textContent=(k+1)+" / "+seq.length;
+  fill.style.width=Math.round((k+1)/seq.length*100)+"%";
+}
+function guideTick(now){
+  raf=null;
+  updateHold(now);
+  if(mode!=="guide")return;
+  if(gPaused){lastT=now;drawNotes();raf=requestAnimationFrame(guideTick);return;}
+  T+=now-lastT;lastT=now;
+  while(step<seq.length&&T>=onsets[step]){guideHit(step);step++;}
+  if(step>=seq.length&&!holdNote){hideNotes();render();return;}
+  drawNotes();
+  raf=requestAnimationFrame(guideTick);
+}
+function startGuide(){
+  applyGuideRate();calcOnsets();
+  if(step===0)T=onsets[0]-FALL;
+  lastT=performance.now();gPaused=false;
+  var pb=document.getElementById("gPlay");pb.textContent="멈춤";pb.className="g on";
+  drawNotes();
+  if(!raf)raf=requestAnimationFrame(guideTick);
 }
 function killCue(){
   if(raf)cancelAnimationFrame(raf);
@@ -741,6 +786,19 @@ function renderRecord(){
 function render(){
   hideCheer();killCue();
   if(mode==="record"){renderRecord();return;}
+  if(mode==="guide"){
+    clearLit();
+    if(songIdx<0){msg.textContent="곡을 고르면 건반을 안내해요";tally.textContent="";fill.style.width="0%";return;}
+    if(step>=seq.length){
+      msg.innerHTML="연주 끝 · <b>처음부터</b>를 누르면 다시 시작";
+      tally.textContent=seq.length+" / "+seq.length;fill.style.width="100%";return;
+    }
+    startGuide();
+    msg.innerHTML="피아노 앞에 놓고 <b>"+NAME[seq[step]]+"</b> 부터 따라 치세요";
+    tally.textContent=(step+1)+" / "+seq.length;
+    fill.style.width=Math.round(step/seq.length*100)+"%";
+    return;
+  }
   if(mode==="free"){
     clearLit();msg.textContent="건반을 눌러 소리를 들어보세요";tally.textContent="";fill.style.width="0%";return;
   }
@@ -825,7 +883,7 @@ function card(ic,label,sub,big,fn){
 function openPicker(){audio();curGenre=null;showGenres();MODAL.classList.add("show");}
 function closePicker(){MODAL.classList.remove("show");}
 function showGenres(){
-  MTITLE.textContent="어떤 곡을 배울까요";MBACK.style.visibility="hidden";
+  MTITLE.textContent=pickTarget==="guide"?"어떤 곡을 안내할까요":"어떤 곡을 배울까요";MBACK.style.visibility="hidden";
   MGRID.innerHTML="";
   GENRES.forEach(function(g){
     var n=g.ids.filter(function(id){return IDX[id]!==undefined;}).length;
@@ -873,11 +931,16 @@ MODAL.addEventListener("pointerdown",function(e){if(e.target===MODAL)closePicker
 function choose(si,pi){
   audio();stopDemo();
   var pt=SONGS[si].parts[pi];
-  songIdx=si;partIdx=pi;seq=pt.n.slice();dur=pt.d.slice();step=0;stars=0;misses=0;holdStars=0;feel="";calcOnsets();
-  setMode("follow");
+  songIdx=si;partIdx=pi;seq=pt.n.slice();dur=pt.d.slice();step=0;stars=0;misses=0;holdStars=0;feel="";
+  setMode(pickTarget);
 }
 function setMode(m){
   releaseAll();clearHold();ringing=null;mode=m;stopDemo();
+  document.body.classList.toggle("guide",m==="guide");
+  document.getElementById("guide").className=m==="guide"?"on":"ghost";
+  if(m==="guide")applyGuideRate();
+  else{beat=SPEEDS[spd].ms;FALL=SPEEDS[spd].fall;}
+  if(songIdx>=0)calcOnsets();
   document.getElementById("free").className=m==="free"?"on":"ghost";
   document.getElementById("follow").className=m==="follow"?"on":"ghost";
   var rb=document.getElementById("record"),ab=document.getElementById("again");
@@ -887,7 +950,26 @@ function setMode(m){
   render();
 }
 document.getElementById("free").onclick=function(){audio();setMode("free");};
-document.getElementById("follow").onclick=function(){openPicker();};
+document.getElementById("follow").onclick=function(){pickTarget="follow";openPicker();};
+document.getElementById("guide").onclick=function(){pickTarget="guide";openPicker();};
+document.getElementById("gPlay").onclick=function(){
+  if(mode!=="guide"||step>=seq.length)return;
+  gPaused=!gPaused;lastT=performance.now();
+  this.textContent=gPaused?"다시 시작":"멈춤";this.className=gPaused?"g ghost":"g on";
+  msg.innerHTML=gPaused?"멈춤 · <b>다시 시작</b>을 누르세요":"<b>"+NAME[seq[Math.min(step,seq.length-1)]]+"</b>";
+};
+function setRate(i){
+  gRate=RATES[Math.max(0,Math.min(RATES.length-1,i))];
+  try{localStorage.setItem("kidsPianoRate",String(gRate));}catch(e){}
+  applyGuideRate();
+  if(mode==="guide"&&songIdx>=0&&step<seq.length){
+    calcOnsets();clearHold();T=onsets[step]-FALL*0.8;lastT=performance.now();
+    tally.textContent=(step+1)+" / "+seq.length+" · "+document.getElementById("gRate").textContent;
+  }
+}
+document.getElementById("gSlow").onclick=function(){audio();setRate(RATES.indexOf(gRate)-1);};
+document.getElementById("gFast").onclick=function(){audio();setRate(RATES.indexOf(gRate)+1);};
+applyGuideRate();
 document.getElementById("again").onclick=function(){
   if(mode==="record"){rec.pop();recT.pop();renderRecord();return;}
   stopDemo();step=0;stars=0;misses=0;holdStars=0;render();
