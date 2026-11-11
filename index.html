@@ -26,7 +26,8 @@
   --ebony:#120F28;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;padding:0;overflow:hidden;overscroll-behavior:none;background:var(--night)}
+html,body{height:100%;margin:0;padding:0;overflow:hidden;overscroll-behavior:none;
+  background:radial-gradient(120% 90% at 50% 0%,#2A2360 0%,var(--night) 55%,#0E0B24 100%)}
 body{color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 
 #app{
@@ -35,39 +36,55 @@ body{color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;touch-acti
   padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-#top{flex:0 0 auto;display:flex;flex-direction:column;gap:4px;padding:5px 7px 6px}
+#top{flex:0 0 auto;display:flex;flex-direction:column;gap:4px;padding:5px 7px 6px;position:relative;z-index:7;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0));
+  box-shadow:0 2px 0 rgba(0,0,0,.35),0 6px 14px rgba(0,0,0,.35)}
 .bar{display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none}
 .bar::-webkit-scrollbar{display:none}
 
-.brand{font-family:Gaegu,"Noto Sans KR",sans-serif;font-weight:700;font-size:19px;color:var(--glow);padding-right:5px;white-space:pre;flex:0 0 auto}
-.brand span{display:inline-block;transform-origin:50% 85%;animation:wave 2.4s ease-in-out infinite}
+.brand{font-family:Gaegu,"Noto Sans KR",sans-serif;font-weight:700;font-size:19px;color:var(--glow);padding-right:5px;white-space:pre;flex:0 0 auto;text-shadow:0 2px 0 #7A5208,0 3px 6px rgba(0,0,0,.5)}
+.brand span{display:inline-block;transform-origin:50% 100%;animation:wave 2.6s ease-in-out infinite}
 @keyframes wave{
-  0%,62%,100%{transform:translateY(0) scale(1);color:var(--glow)}
-  14%{transform:translateY(-4px) scale(1.45);color:#FFF3D0}
-  30%{transform:translateY(0) scale(1);color:var(--glow)}}
+  0%,62%,100%{transform:translateY(0) scale(1);color:var(--glow);text-shadow:none}
+  14%{transform:translateY(-3px) scale(1.16);color:#FFF3D0;text-shadow:0 0 8px rgba(255,200,87,.9)}
+  30%{transform:translateY(0) scale(1);color:var(--glow);text-shadow:none}}
 
-button{font-family:inherit;color:var(--ink);background:var(--panel);border:1.5px solid transparent;border-radius:999px;padding:5px 12px;font-size:13px;line-height:1.35;white-space:nowrap;cursor:pointer;transition:transform .08s,background .15s}
-button:active{transform:scale(.95)}
+button{font-family:inherit;color:var(--ink);border:1.5px solid transparent;border-radius:999px;padding:5px 12px;font-size:13px;line-height:1.35;white-space:nowrap;cursor:pointer;
+  background:linear-gradient(180deg,#2F2760 0%,#221C4B 100%);
+  box-shadow:0 2px 0 #110D2A,0 3px 6px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.12);
+  transition:transform .08s,background .15s,box-shadow .08s}
+button:active{transform:translateY(2px);box-shadow:0 0 0 #110D2A,0 1px 2px rgba(0,0,0,.4),inset 0 2px 4px rgba(0,0,0,.35)}
 button:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
-button.on{background:var(--glow);color:#3B2A00;font-weight:500}
-button.ghost{background:transparent;border-color:var(--panel-2)}
+button.on{background:linear-gradient(180deg,#FFD978 0%,#FFB73A 100%);color:#3B2A00;font-weight:500;
+  box-shadow:0 2px 0 #9A6208,0 3px 8px rgba(255,180,50,.35),inset 0 1px 0 rgba(255,255,255,.55)}
+button.on:active{box-shadow:0 0 0 #9A6208,0 1px 2px rgba(0,0,0,.3),inset 0 2px 4px rgba(120,70,0,.35)}
+button.ghost{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border-color:rgba(167,159,214,.35);
+  box-shadow:0 2px 0 rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
+button.ghost:active{box-shadow:0 0 0 rgba(0,0,0,.35),inset 0 2px 4px rgba(0,0,0,.4)}
 .g{display:none}
 body.guide .g{display:inline-block}
 body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.guide #demo{display:none}
-.chip{font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:17px;color:var(--glow);padding:4px 10px;border:1.5px solid var(--panel-2);border-radius:999px;white-space:nowrap;min-width:52px;text-align:center}
+.chip{font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:17px;color:var(--glow);padding:4px 10px;border:1.5px solid rgba(167,159,214,.35);border-radius:999px;white-space:nowrap;min-width:52px;text-align:center;
+  background:linear-gradient(180deg,#120F28,#1B1640);box-shadow:inset 0 2px 5px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.06)}
 .sep{width:1px;align-self:stretch;background:var(--panel-2);margin:2px 3px;flex:0 0 auto}
 
 #stage{flex:1 1 auto;min-height:70%;position:relative;overflow:hidden;touch-action:none}
-#piano{position:absolute;inset:0;touch-action:none}
+#piano{position:absolute;inset:0;touch-action:none;background:#0B0920}
+#piano::before{content:"";position:absolute;left:0;right:0;top:0;height:9px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,#B03A2E 0%,#7A2219 60%,#4A120C 100%);
+  box-shadow:0 3px 6px rgba(0,0,0,.6)}
+#piano::after{content:"";position:absolute;left:0;right:0;top:9px;height:22px;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,0))}
 
-#track{position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.1);z-index:6;pointer-events:none}
-#fill{height:100%;width:0;background:var(--good);transition:width .18s}
+#track{position:absolute;top:0;left:0;right:0;height:4px;background:rgba(0,0,0,.5);z-index:6;pointer-events:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.7)}
+#fill{height:100%;width:0;background:linear-gradient(180deg,#8DEFC9,#3FB48C);box-shadow:0 0 8px rgba(93,202,165,.9);transition:width .18s}
 
 #status{
   position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:5;pointer-events:none;
   display:flex;align-items:center;gap:9px;max-width:92%;
-  background:rgba(23,19,52,.82);border:1px solid rgba(167,159,214,.28);
-  border-radius:999px;padding:3px 14px;backdrop-filter:blur(3px);
+  background:linear-gradient(180deg,rgba(60,50,110,.85),rgba(23,19,52,.9));border:1px solid rgba(167,159,214,.35);
+  border-radius:999px;padding:3px 14px;backdrop-filter:blur(4px);
+  box-shadow:0 4px 12px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18);
 }
 #msg{font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:19px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #msg b{color:var(--glow);font-weight:700}
@@ -75,8 +92,13 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
 
 .key{position:absolute;top:0;display:flex;align-items:flex-end;justify-content:center;cursor:pointer;overflow:hidden;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
 .lbl{position:relative;z-index:2}
-.nt{position:absolute;left:3px;right:3px;z-index:1;border-radius:4px;background:var(--glow);pointer-events:none;display:none}
-.nt.bk{left:2px;right:2px;background:#FFD98A}
+.nt{position:absolute;left:2px;right:2px;z-index:1;border-radius:6px;pointer-events:none;display:none;
+  background:linear-gradient(180deg,#FF9A3C 0%,#FF6A2A 100%);border:2px solid #FFF3D0;box-sizing:border-box;
+  box-shadow:0 0 0 2px #B83A00,0 0 14px 3px rgba(255,120,40,.85),inset 0 -6px 10px rgba(0,0,0,.18)}
+.nt::after{content:"";position:absolute;left:4px;right:4px;top:3px;height:3px;border-radius:2px;background:rgba(255,255,255,.75)}
+.nt.bk{left:1px;right:1px;background:linear-gradient(180deg,#FFF17A 0%,#FFC400 100%);box-shadow:0 0 0 2px #3A2A00,0 0 18px 5px rgba(255,220,80,1),inset 0 -6px 10px rgba(0,0,0,.15)}
+.nt.near{animation:ntpulse .32s ease-in-out infinite alternate}
+@keyframes ntpulse{from{filter:brightness(1)}to{filter:brightness(1.35)}}
 .nt.hold{background:var(--good);opacity:.9;box-shadow:0 0 10px rgba(93,202,165,.6)}
 .b .w.ready{box-shadow:inset 0 0 0 3px var(--glow),0 0 14px rgba(255,200,87,.5)}
 .b.ready{box-shadow:inset 0 0 0 2px var(--glow)}
@@ -84,7 +106,7 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
 .lit .lbl{transform:scale(1.22)}
 .w.lit,.b.lit{animation:beam .5s ease-in-out infinite alternate}
 @keyframes beam{from{box-shadow:inset 0 0 0 0 rgba(255,255,255,0),0 0 6px rgba(255,200,87,.5)}
-  to{box-shadow:inset 0 0 26px 7px rgba(255,255,255,.6),0 0 22px rgba(255,200,87,.9)}}
+  to{box-shadow:inset 0 0 26px 7px rgba(255,255,255,.6),0 0 10px rgba(255,200,87,.7)}}
 .ring{position:absolute;z-index:6;width:14px;height:14px;border-radius:50%;border:3px solid #FFF3D0;box-shadow:0 0 18px rgba(255,200,87,.95),inset 0 0 10px rgba(255,200,87,.8);pointer-events:none;animation:ripple .5s ease-out forwards}
 @keyframes ripple{from{transform:translate(-50%,-50%) scale(.3);opacity:1}
   to{transform:translate(-50%,-50%) scale(9);opacity:0}}
@@ -99,18 +121,38 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
 .flash{position:absolute;z-index:7;width:26px;height:26px;border-radius:50%;background:#FFF8E4;box-shadow:0 0 26px 12px rgba(255,200,87,.9);pointer-events:none;animation:flash .32s ease-out forwards}
 @keyframes flash{from{transform:translate(-50%,-50%) scale(.4);opacity:1}
   to{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
-.w{background:var(--ivory);border:1px solid #C9C2B4;border-top:none;border-radius:0 0 9px 9px;color:#6C6455;padding-bottom:10px;box-shadow:inset 0 -7px 0 rgba(0,0,0,.05)}
-.b{background:var(--ebony);z-index:3;border-radius:0 0 7px 7px;color:#8E86BF;padding-bottom:8px;box-shadow:inset 0 -5px 0 rgba(255,255,255,.09)}
-.w.hit{background:#E7E0CE}
-.b.hit{background:#2A2452}
-.w.lit{background:var(--glow);color:#3B2A00;border-color:var(--glow-deep)}
-.b.lit{background:var(--glow);color:#3B2A00}
+.w{background:linear-gradient(90deg,#E9E3D4 0%,#FFFDF7 9%,#FFFDF7 88%,#E4DECF 100%),var(--ivory);
+  border:1px solid #B9B2A3;border-top:none;border-radius:0 0 9px 9px;color:#6C6455;padding-bottom:12px;
+  box-shadow:inset 0 -9px 0 #CFC7B6,inset 0 -11px 0 rgba(0,0,0,.08),inset 2px 0 3px rgba(255,255,255,.7),inset -3px 0 4px rgba(0,0,0,.08),0 4px 0 #8E877A;
+  transition:transform .05s,box-shadow .05s}
+.w .lbl{text-shadow:0 1px 0 #fff}
+.b{background:linear-gradient(90deg,#060414 0%,#201A44 18%,#2A2452 50%,#1A1538 82%,#050312 100%);
+  z-index:3;border-radius:0 0 7px 7px;color:#9F97D0;padding-bottom:9px;
+  box-shadow:inset 0 -7px 0 #0A0818,inset 0 -9px 0 rgba(255,255,255,.1),inset 0 3px 4px rgba(255,255,255,.08),0 6px 10px rgba(0,0,0,.7),0 2px 0 #000;
+  transition:transform .05s,box-shadow .05s}
+.b::before{content:"";position:absolute;left:22%;width:18%;top:0;bottom:20%;border-radius:0 0 6px 6px;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05) 60%,rgba(255,255,255,0));pointer-events:none}
+.w.hit{background:linear-gradient(90deg,#D9D2C1,#EFE8D8 10%,#EFE8D8 88%,#D4CDBC);transform:translateY(3px);
+  box-shadow:inset 0 -5px 0 #CFC7B6,inset 0 3px 6px rgba(0,0,0,.18),inset 2px 0 3px rgba(255,255,255,.4),0 1px 0 #8E877A}
+.b.hit{transform:translateY(3px);background:linear-gradient(90deg,#060414,#2A2452 30%,#352C66 50%,#241E4C 75%,#050312);
+  box-shadow:inset 0 -4px 0 #0A0818,inset 0 3px 6px rgba(0,0,0,.6),0 2px 4px rgba(0,0,0,.7)}
+.w.lit{background:linear-gradient(90deg,#E59A1E 0%,#FFD16A 10%,#FFC24A 88%,#D98F14 100%);color:#3B2A00;border-color:var(--glow-deep);
+  box-shadow:inset 0 -9px 0 #B87F0C,inset 0 -11px 0 rgba(0,0,0,.12),inset 2px 0 3px rgba(255,255,255,.6),0 4px 0 #7A5208}
+.b.lit{background:linear-gradient(90deg,#B87F0C,#FFD16A 35%,#FFE49B 50%,#FFC24A 70%,#9A6208);color:#3B2A00;
+  box-shadow:inset 0 -7px 0 #7A5208,inset 0 3px 4px rgba(255,255,255,.4),0 6px 10px rgba(0,0,0,.6)}
 .w.good,.b.good{background:var(--good);color:#07402F}
 .w.miss,.b.miss{background:var(--miss);color:#5B2107}
 
 #cheer{position:absolute;inset:0;z-index:8;display:none;align-items:center;justify-content:center;background:rgba(23,19,52,.55);overflow:hidden;cursor:pointer}
 #cheer.show{display:flex}
-#cheerCard{position:relative;z-index:2;text-align:center;background:var(--panel);border:2px solid var(--glow);border-radius:22px;padding:14px 34px;animation:pop .45s cubic-bezier(.2,1.5,.4,1)}
+#cheerCard{position:relative;z-index:2;text-align:center;background:linear-gradient(180deg,#352C6A,#241E4D);border:2px solid var(--glow);border-radius:22px;padding:12px 30px 14px;
+  box-shadow:0 0 0 4px rgba(255,200,87,.18),0 24px 60px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.15);animation:pop .45s cubic-bezier(.2,1.5,.4,1)}
+#cheerStars{font-size:clamp(26px,7vh,44px);letter-spacing:4px;line-height:1;color:var(--glow);text-shadow:0 0 14px rgba(255,200,87,.8)}
+#cheerStars .dim{color:var(--panel-2);text-shadow:none}
+#cheerBtns{display:flex;gap:8px;justify-content:center;margin-top:10px;pointer-events:auto}
+#cheerBtns button{font-size:14px;padding:7px 16px}
+#cheer{pointer-events:none}
+#cheer.show{pointer-events:auto}
 #cheerCard strong{display:block;font-family:Gaegu,"Noto Sans KR",sans-serif;font-weight:700;font-size:clamp(26px,7vh,52px);line-height:1.1;color:var(--glow)}
 #cheerCard small{display:block;margin-top:3px;font-size:clamp(11px,2vh,15px);color:var(--ink-dim)}
 @keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -122,15 +164,18 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
   background:rgba(10,8,26,.72);padding:10px}
 #modal.show{display:flex}
 #sheet{width:100%;max-width:760px;max-height:94%;display:flex;flex-direction:column;
-  background:var(--panel);border:1.5px solid var(--panel-2);border-radius:20px;overflow:hidden}
+  background:linear-gradient(180deg,#2A2360,#1F1948);border:1.5px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.1)}
 #mHead{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--panel-2)}
 #mTitle{flex:1;text-align:center;font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:22px;color:var(--glow)}
 #mGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;
   padding:12px;overflow-y:auto}
 .card{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 8px;
-  background:var(--panel-2);border:1.5px solid transparent;border-radius:16px;cursor:pointer;
-  color:var(--ink);font-family:inherit;transition:transform .1s,border-color .15s}
-.card:active{transform:scale(.95)}
+  background:linear-gradient(180deg,#352C6A 0%,#2A2358 100%);border:1.5px solid rgba(255,255,255,.06);border-radius:16px;cursor:pointer;
+  color:var(--ink);font-family:inherit;transition:transform .1s,border-color .15s,box-shadow .1s;
+  box-shadow:0 3px 0 #171334,0 6px 12px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.1)}
+.card:active{transform:translateY(3px);box-shadow:0 0 0 #171334,0 2px 4px rgba(0,0,0,.45),inset 0 2px 5px rgba(0,0,0,.35)}
+.card svg{filter:drop-shadow(0 2px 2px rgba(0,0,0,.45))}
 .card:hover,.card:focus-visible{border-color:var(--glow);outline:none}
 .card svg{width:34px;height:34px;fill:var(--glow)}
 .card b{font-size:14px;font-weight:500;line-height:1.25;text-align:center;word-break:keep-all}
@@ -144,13 +189,31 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
   .card b{font-size:13px}
   #mTitle{font-size:19px}
 }
+.grow{flex:1 1 auto;min-width:4px}
+.rec{display:none}
+body.record .rec{display:inline-block}
+body.free #again,body.guide #demo,body.record #demo{display:none}
+#settingsBtn{display:inline-flex;align-items:center;gap:5px}
+#settings{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(10,8,26,.72);padding:10px}
+#settings.show{display:flex}
+#sheet2{width:100%;max-width:560px;max-height:94%;display:flex;flex-direction:column;background:linear-gradient(180deg,#2A2360,#1F1948);border:1.5px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.1)}
+#mHead2{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--panel-2)}
+#mTitle2{flex:1;text-align:center;font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:22px;color:var(--glow)}
+#sBody{overflow-y:auto;padding:4px 12px 10px}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 2px;border-bottom:1px solid var(--panel-2)}
+.srow:last-child{border-bottom:0}
+.slab{font-size:15px;color:var(--ink)}
+.slab small{display:block;font-size:12px;color:var(--ink-dim);margin-top:2px}
+.sgrp{display:flex;gap:5px;flex:0 0 auto}
+@media (max-height:430px){.srow{padding:7px 2px}.slab{font-size:14px}.slab small{font-size:11px}}
 #rotate{position:fixed;inset:0;background:var(--night);z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px}
 #rotate.show{display:flex}
 #rotate .ph{width:56px;height:94px;border:4px solid var(--glow);border-radius:12px;animation:tip 1.8s ease-in-out infinite}
 @keyframes tip{0%,40%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
 #rotate p{font-family:Gaegu,"Noto Sans KR",sans-serif;font-size:24px;margin:0}
 #rotate small{color:var(--ink-dim);font-size:13px}
-@media (prefers-reduced-motion:reduce){.brand span{animation:none}#rotate .ph{animation:none;transform:rotate(-90deg)}button:active{transform:none}.spark,.ring,.fw,.flash{display:none}.w.holding,.b.holding{animation:none}#cheerCard{animation:none}.w.lit,.b.lit{animation:none;box-shadow:inset 0 0 20px 5px rgba(255,255,255,.5)}}
+@media (prefers-reduced-motion:reduce){.brand span{animation:none}#rotate .ph{animation:none;transform:rotate(-90deg)}button:active{transform:none}.spark,.ring,.fw,.flash{display:none}.nt.near{animation:none}.w.holding,.b.holding{animation:none}#cheerCard{animation:none}.w.lit,.b.lit{animation:none;box-shadow:inset 0 0 20px 5px rgba(255,255,255,.5)}}
 
 @media (max-height:430px){
   #top{gap:3px;padding:4px 6px 5px}
@@ -176,20 +239,29 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
       <button id="follow" class="ghost">따라하기</button>
       <button id="guide" class="ghost">연주 안내</button>
       <span class="sep"></span>
-      <button id="wide" class="ghost">가로로 크게</button>
       <button id="demo" class="ghost">들려주기</button>
       <button id="again" class="ghost">처음부터</button>
-      <button id="rhythm" class="on">리듬 켜짐</button>
-      <button id="score" class="on">정확도 켜짐</button>
-      <button class="spd on" data-spd="0">1배속</button>
-      <button class="spd ghost" data-spd="1">2배속</button>
-      <button class="spd ghost" data-spd="2">3배속</button>
       <button id="gPlay" class="g on">멈춤</button>
       <button id="gSlow" class="g ghost">느리게</button>
       <span id="gRate" class="g chip">1배</span>
       <button id="gFast" class="g ghost">빠르게</button>
-      <button id="instBtn" class="ghost">피아노</button>
-      <button id="record" class="ghost">직접 만들기</button>
+      <button id="record" class="rec ghost">저장하기</button>
+      <span class="grow"></span>
+      <button id="settingsBtn" class="ghost" aria-label="설정"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.6 3.5c0-.5 0-1-.1-1.4l2-1.6-1.9-3.3-2.4 1a7.6 7.6 0 0 0-2.4-1.4L15.4 2h-3.8l-.4 2.6c-.9.3-1.7.8-2.4 1.4l-2.4-1-1.9 3.3 2 1.6c-.1.5-.1 1-.1 1.4s0 1 .1 1.4l-2 1.6 1.9 3.3 2.4-1c.7.6 1.5 1.1 2.4 1.4l.4 2.6h3.8l.4-2.6c.9-.3 1.7-.8 2.4-1.4l2.4 1 1.9-3.3-2-1.6c.1-.4.1-.9.1-1.4z"/></svg> 설정</button>
+    </div>
+  </div>
+
+  <div id="settings">
+    <div id="sheet2">
+      <div id="mHead2"><span id="mTitle2">설정</span><button id="sClose" class="ghost">닫기</button></div>
+      <div id="sBody">
+        <div class="srow"><div class="slab">리듬 안내<small>노트가 내려오며 누를 때를 알려줘요</small></div><button id="rhythm" class="on">리듬 켜짐</button></div>
+        <div class="srow"><div class="slab">정확도 채점<small>누르고 있는 길이까지 점수로 매겨요</small></div><button id="score" class="on">정확도 켜짐</button></div>
+        <div class="srow"><div class="slab">따라하기 속도<small>노트가 내려오는 빠르기</small></div><span class="sgrp"><button class="spd on" data-spd="0">1배속</button><button class="spd ghost" data-spd="1">2배속</button><button class="spd ghost" data-spd="2">3배속</button></span></div>
+        <div class="srow"><div class="slab">소리<small>건반을 누를 때 나는 악기</small></div><button id="instBtn" class="ghost">피아노</button></div>
+        <div class="srow"><div class="slab">화면<small>전체화면으로 가로 고정</small></div><button id="wide" class="ghost">가로로 크게</button></div>
+        <div class="srow"><div class="slab">나만의 곡<small>건반을 눌러 새 곡을 저장해요</small></div><button id="recordStart" class="ghost">직접 만들기</button></div>
+      </div>
     </div>
   </div>
 
@@ -197,7 +269,7 @@ body.guide .spd,body.guide #rhythm,body.guide #score,body.guide #record,body.gui
     <div id="track"><div id="fill"></div></div>
     <div id="status"><span id="msg">건반을 눌러 소리를 들어보세요</span><span id="tally"></span></div>
     <div id="piano"></div>
-    <div id="cheer"><div id="cheerCard"><strong>참 잘했어요</strong><small id="cheerSub"></small></div></div>
+    <div id="cheer"><div id="cheerCard"><div id="cheerStars">★★★</div><strong id="cheerTitle">참 잘했어요</strong><small id="cheerSub"></small><div id="cheerBtns"><button id="cheerAgain">다시 하기</button><button id="cheerOther" class="ghost">다른 곡</button></div></div></div>
   </div>
 </div>
 
@@ -477,9 +549,9 @@ var ac=null,bus=null;
 function audio(){
   if(!ac){
     ac=new (window.AudioContext||window.webkitAudioContext)();
-    bus=ac.createGain();bus.gain.value=0.42;
+    bus=ac.createGain();bus.gain.value=0.9;
     var lim=ac.createDynamicsCompressor();
-    lim.threshold.value=-10;lim.knee.value=6;lim.ratio.value=12;
+    lim.threshold.value=-6;lim.knee.value=8;lim.ratio.value=8;
     lim.attack.value=0.003;lim.release.value=0.25;
     bus.connect(lim);lim.connect(ac.destination);
   }
@@ -501,12 +573,18 @@ function celebrate(){
     s.style.fontSize=(14+Math.random()*20).toFixed(0)+"px";
     cheer.insertBefore(s,cheer.firstChild);
   }
-  cheerSub.textContent=(scoreMode?"음 별 "+stars+"개 · 길이 별 "+holdStars+"개 · 합계 "+(stars+holdStars)+"개":"별 "+stars+"개 모았어요")+" · 실수 "+misses+"번";
+  clearHold();
+  var n=seq.length,acc=n/(n+misses),hold=scoreMode?holdStars/(2*n):1,r=acc*0.6+hold*0.4,k=r>=0.85?3:r>=0.6?2:1;
+  document.getElementById("cheerStars").innerHTML="★★★".split("").map(function(c,i){return i<k?c:'<span class="dim">'+c+'</span>';}).join("");
+  document.getElementById("cheerTitle").textContent=k===3?"완벽해요!":k===2?"참 잘했어요":"끝까지 쳤어요";
+  cheerSub.textContent=(SONGS[songIdx]?SONGS[songIdx].title+" · ":"")+n+"음"+(misses?" · 실수 "+misses+"번":" · 실수 없이!")+(scoreMode?" · 길이 별 "+holdStars+"개":"");
   cheer.classList.add("show");
-  clearTimeout(cheerTimer);cheerTimer=setTimeout(hideCheer,6000);
+  clearTimeout(cheerTimer);
 }
 function hideCheer(){clearTimeout(cheerTimer);cheer.classList.remove("show");}
-cheer.addEventListener("pointerdown",function(e){e.preventDefault();hideCheer();});
+cheer.addEventListener("pointerdown",function(e){if(e.target===cheer){e.preventDefault();hideCheer();}});
+document.getElementById("cheerAgain").onclick=function(){hideCheer();stopDemo();step=0;stars=0;misses=0;holdStars=0;feel="";render();};
+document.getElementById("cheerOther").onclick=function(){hideCheer();pickTarget="follow";openPicker();};
 
 var voices={},held={};
 var TAIL=5,MAX_TOTAL=14,MAX_PER_KEY=3,nVoices=0;
@@ -528,19 +606,19 @@ function buildVoice(midi){
     var flt=c.createBiquadFilter();flt.type="lowpass";flt.Q.value=1.3;
     flt.frequency.setValueAtTime(3400,t);flt.frequency.exponentialRampToValueAtTime(650,t+.4);
     flt.connect(g);dest=flt;
-    G.linearRampToValueAtTime(.36,t+.006);G.exponentialRampToValueAtTime(.12,t+.5);G.exponentialRampToValueAtTime(.0001,t+3);
+    G.linearRampToValueAtTime(.46,t+.006);G.exponentialRampToValueAtTime(.16,t+.5);G.exponentialRampToValueAtTime(.0001,t+3);
     specs=[[1,"sawtooth",.5],[1.004,"sawtooth",.25],[2,"triangle",.2],[3,"sine",.08]];rel=.12;tail=3;
   }else if(inst==="chip"){
-    G.linearRampToValueAtTime(.17,t+.004);G.setValueAtTime(.17,t+TAIL-.05);G.exponentialRampToValueAtTime(.0001,t+TAIL);
+    G.linearRampToValueAtTime(.24,t+.004);G.setValueAtTime(.17,t+TAIL-.05);G.exponentialRampToValueAtTime(.0001,t+TAIL);
     specs=[[1,"square",1],[2,"square",.1]];rel=.05;
   }else if(inst==="bell"){
-    G.linearRampToValueAtTime(.3,t+.003);G.exponentialRampToValueAtTime(.05,t+.6);G.exponentialRampToValueAtTime(.0001,t+1.8);
+    G.linearRampToValueAtTime(.42,t+.003);G.exponentialRampToValueAtTime(.08,t+.6);G.exponentialRampToValueAtTime(.0001,t+1.8);
     specs=[[1,"sine",1],[3,"sine",.32],[6.4,"sine",.12],[9.7,"sine",.04]];rel=.25;tail=1.8;
   }else if(inst==="organ"){
-    G.linearRampToValueAtTime(.2,t+.03);G.setValueAtTime(.2,t+TAIL-.05);G.exponentialRampToValueAtTime(.0001,t+TAIL);
+    G.linearRampToValueAtTime(.3,t+.03);G.setValueAtTime(.2,t+TAIL-.05);G.exponentialRampToValueAtTime(.0001,t+TAIL);
     specs=[[.5,"sine",.3],[1,"sine",1],[2,"sine",.55],[3,"sine",.35],[4,"sine",.25]];rel=.08;
   }else{
-    G.linearRampToValueAtTime(.3,t+.014);G.exponentialRampToValueAtTime(.08,t+1.1);G.exponentialRampToValueAtTime(.0001,t+TAIL);
+    G.linearRampToValueAtTime(.42,t+.012);G.exponentialRampToValueAtTime(.14,t+1.1);G.exponentialRampToValueAtTime(.0001,t+TAIL);
     specs=[[1,"triangle",1],[2,"sine",.28],[3,"sine",.12],[4,"sine",.05]];
   }
   specs.forEach(function(h){
@@ -634,7 +712,7 @@ function updateHold(now){
       if(ratio>=.8){holdStars+=2;feel="길이까지 완벽";burst(holdNote.m);}
       else if(ratio>=.5){holdStars+=1;feel="조금 짧아요";}
       else feel="너무 짧게 눌렀어요";
-      tally.textContent=Math.min(step,seq.length)+" / "+seq.length+" · "+feel;
+      if(step<seq.length)tally.textContent=(step+1)+" / "+seq.length+" · "+feel;
     }
     noteOff(holdNote.m);ringing=null;clearHold();return;
   }
@@ -667,13 +745,14 @@ function drawNotes(){
     if(p<-0.04){d.style.display="none";continue;}
     p=Math.max(0,Math.min(1,p-i*0.002));
     var m=seq[k],key=keys[m],Hk=key.offsetHeight;
-    var h=Math.max(8,Math.min(Hk*0.42,noteMs(dur[k])/FALL*Hk*0.7));
+    var isB=!!BLK[m],h=Math.max(Math.round(Hk*(isB?0.22:0.14)),Math.min(Hk*0.28,noteMs(dur[k])/FALL*Hk*0.55));
     if(d.parentNode!==key)key.appendChild(d);
-    d.className="nt"+(BLK[m]?" bk":"");
+    d.className="nt"+(BLK[m]?" bk":"")+(i===0&&p>0.72?" near":"");
     d.style.display="block";
     d.style.height=Math.round(h)+"px";
     d.style.top=Math.round((Hk-h)*p)+"px";
-    d.style.opacity=(0.18+0.82*p).toFixed(2);
+    d.style.opacity=(isB?0.7+0.3*p:0.55+0.45*p).toFixed(2);
+    d.style.transform="scale("+(0.86+0.14*p).toFixed(3)+")";
   }
 }
 function tick(now){
@@ -804,8 +883,8 @@ function render(){
   }
   clearLit();
   if(step>=seq.length){
-    msg.innerHTML="다 쳤어요. <b>참 잘했어요</b>";
-    tally.textContent="별 "+stars+"개 · 실수 "+misses+"번";
+    msg.innerHTML="<b>"+(SONGS[songIdx]?SONGS[songIdx].title:"")+"</b> 끝";
+    tally.textContent="처음부터 또는 다른 곡";
     fill.style.width="100%";return;
   }
   if(rhythm)startCue();else lightNow();
@@ -873,6 +952,16 @@ document.addEventListener("keyup",function(e){
 var MODAL=document.getElementById("modal"),MGRID=document.getElementById("mGrid"),
     MTITLE=document.getElementById("mTitle"),MBACK=document.getElementById("mBack"),
     curGenre=null,curSong=-1;
+function songMeta(pt){
+  var n=pt.n,d=pt.d,mx=Math.max.apply(null,d),sc=(mx*1800>2000)?2000/(mx*1800):1,ms=0,i;
+  for(i=0;i<d.length;i++)ms+=Math.max(110,d[i]*1800*sc);
+  var hasBlack=false,span=Math.max.apply(null,n)-Math.min.apply(null,n);
+  for(i=0;i<n.length;i++)if(BLK[n[i]]){hasBlack=true;break;}
+  var lv=n.length<=30?0:n.length<=70?1:2;
+  if(hasBlack||span>14)lv=Math.min(2,lv+1);
+  var s=Math.round(ms/1000),len=s>=60?Math.floor(s/60)+"분 "+(s%60?s%60+"초":""):s+"초";
+  return ["쉬움","보통","어려움"][lv]+" · "+len.trim();
+}
 function svgIcon(n){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(ICONS[n]||ICONS.note)+'"/></svg>';}
 function card(ic,label,sub,big,fn){
   var b=document.createElement("button");
@@ -897,7 +986,7 @@ function showSongs(){
   curGenre.ids.forEach(function(id){
     var i=IDX[id];if(i===undefined)return;
     var s=SONGS[i],full=s.parts[s.parts.length-1];
-    MGRID.appendChild(card(SONGICON[id],s.title,full.n.length+"음",false,function(){curSong=i;showParts();}));
+    MGRID.appendChild(card(SONGICON[id],s.title,songMeta(full),false,function(){curSong=i;showParts();}));
   });
 }
 function showParts(){
@@ -924,7 +1013,7 @@ function showInstruments(){
   });
   MODAL.classList.add("show");
 }
-document.getElementById("instBtn").onclick=function(){audio();showInstruments();};
+document.getElementById("instBtn").onclick=function(){closeSettings();audio();showInstruments();};
 document.getElementById("instBtn").textContent=INST[inst].t;
 document.getElementById("mClose").onclick=closePicker;
 MODAL.addEventListener("pointerdown",function(e){if(e.target===MODAL)closePicker();});
@@ -937,6 +1026,8 @@ function choose(si,pi){
 function setMode(m){
   releaseAll();clearHold();ringing=null;mode=m;stopDemo();
   document.body.classList.toggle("guide",m==="guide");
+  document.body.classList.toggle("record",m==="record");
+  document.body.classList.toggle("free",m==="free");
   document.getElementById("guide").className=m==="guide"?"on":"ghost";
   if(m==="guide")applyGuideRate();
   else{beat=SPEEDS[spd].ms;FALL=SPEEDS[spd].fall;}
@@ -944,8 +1035,7 @@ function setMode(m){
   document.getElementById("free").className=m==="free"?"on":"ghost";
   document.getElementById("follow").className=m==="follow"?"on":"ghost";
   var rb=document.getElementById("record"),ab=document.getElementById("again");
-  rb.className=m==="record"?"on":"ghost";
-  rb.textContent=m==="record"?"저장하기":"직접 만들기";
+  rb.className="rec "+(m==="record"?"on":"ghost");
   ab.textContent=m==="record"?"마지막 지우기":"처음부터";
   render();
 }
@@ -997,6 +1087,13 @@ Array.prototype.forEach.call(document.querySelectorAll(".spd"),function(b){
     feel="";render();
   };
 });
+var SET=document.getElementById("settings");
+function openSettings(){audio();SET.classList.add("show");}
+function closeSettings(){SET.classList.remove("show");}
+document.getElementById("settingsBtn").onclick=openSettings;
+document.getElementById("sClose").onclick=closeSettings;
+SET.addEventListener("pointerdown",function(e){if(e.target===SET)closeSettings();});
+document.getElementById("recordStart").onclick=function(){closeSettings();audio();rec=[];recT=[];setMode("record");};
 document.getElementById("record").onclick=function(){
   audio();
   if(mode!=="record"){rec=[];recT=[];setMode("record");return;}
@@ -1070,7 +1167,7 @@ function hintIfPortrait(){
 }
 
 document.getElementById("wide").onclick=function(){
-  audio();
+  closeSettings();audio();
   var btn=this;
   if(document.fullscreenElement||document.webkitFullscreenElement){
     if(screen.orientation&&screen.orientation.unlock)try{screen.orientation.unlock();}catch(e){}
@@ -1100,7 +1197,7 @@ document.getElementById("wide").onclick=function(){
 window.addEventListener("resize",function(){layout();hintIfPortrait();});
 if(window.visualViewport)visualViewport.addEventListener("resize",layout);
 if(screen.orientation)screen.orientation.addEventListener("change",function(){setTimeout(function(){layout();hintIfPortrait();},120);});
-layout();render();hintIfPortrait();
+document.body.classList.add("free");layout();render();hintIfPortrait();
 setTimeout(layout,300);
 })();
 </script></body></html>
